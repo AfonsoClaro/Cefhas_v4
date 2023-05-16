@@ -1,8 +1,36 @@
 import * as React from 'react';
-import { Button, View } from 'react-native';
+import { Button, View, Image, StyleSheet, Text, Alert } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import * as AzureAuth from 'react-native-azure-auth';
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 50,
+  },
+  titulo:{
+    fontFamily:'',
+    fontSize:75,
+    color:'dimgray',
+    position:'absolute',
+    top:50,
+
+  },
+  logo1: {
+    width: 150,
+    height: 70,
+    position:'absolute',
+    bottom:15,
+    left:15,
+  },
+  logo2: {
+    width: 150,
+    height: 70,
+    position:'absolute',
+    bottom:15,
+    right:15,
+  },
+});
 
 function HomeScreen({ navigation }) {
   const handleLogin = async () => {
@@ -15,7 +43,7 @@ function HomeScreen({ navigation }) {
       const token = await azureAuth.login();
       
       if (token) {
-        navigation.navigate('Notifications');
+        navigation.navigate('Galeria');
       } else {
         // Handle failed login
       }
@@ -27,18 +55,51 @@ function HomeScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={handleLogin} title="Microsoft Login" />
+      <Text style={styles.titulo}
+      >CEFHAS</Text>
+      <Image
+        style={styles.logo1}
+        source={require('./assets/ipt.png')}
+      />
+      <Image
+        style={styles.logo2}
+        source={require('./assets/LabCR.jpg')}
+      />
+      <Button 
+        //onPress={handleLogin}
+        onPress={() => Alert.alert('Login não implementado')} 
+        title="Microsoft Login" 
+        color="gray"
+      />
     </View>
   );
 }
 
-function NotificationsScreen({ navigation }) {
+
+function Galeria({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button onPress={() => navigation.goBack()} title="Go back home" />
     </View>
   );
 }
+
+function FichaInventario({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button onPress={() => navigation.goBack()} title="Go back home" />
+    </View>
+  );
+}
+
+function FichaCR({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button onPress={() => navigation.goBack()} title="Go back home" />
+    </View>
+  );
+}
+
 
 const Drawer = createDrawerNavigator();
 
@@ -47,7 +108,9 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+        <Drawer.Screen name="Galeria" component={Galeria} />
+        <Drawer.Screen name="Fichas de Inventário" component={FichaInventario} />
+        <Drawer.Screen name="Fichas de CR" component={FichaCR} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
