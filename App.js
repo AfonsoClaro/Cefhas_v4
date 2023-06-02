@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { Button, View, Image, StyleSheet, Text, Alert, ImageBackground } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Button, View, Image, StyleSheet, Text, Alert, ImageBackground, ScrollView, SafeAreaView} from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import * as AzureAuth from 'react-native-azure-auth';
+import requestCameraPermission from './components/QRScanner';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -43,6 +46,9 @@ const styles = StyleSheet.create({
 });
 
 function HomeScreen({ navigation }) {
+
+ const[scanResult, setScanResult] = useState(null);
+
   const handleLogin = async () => {
     try {
       const azureAuth = new AzureAuth.AzureAuth({
@@ -63,9 +69,11 @@ function HomeScreen({ navigation }) {
     }
   };
 
+  <requestCameraPermission />
+
   return (
     <ImageBackground
-      source={require('./assets/fundo.jpg')}
+      //source={require('./assets/fundo.jpg')}
       style={styles.background}
     >
       <View style={styles.container}>
@@ -79,14 +87,18 @@ function HomeScreen({ navigation }) {
           style={styles.logo2}
           source={require('./assets/LabCR.jpg')}
         />
+        <Button
+          title="Teste"
+          onPress={()=>{requestCameraPermission()}}
+        />
+        {/*
         <Button 
           //onPress={handleLogin}
           onPress={() => Alert.alert('Login não implementado')} 
           title="Microsoft Login" 
-          color="gray"
-          
-        />
-      </View>
+          //color="gray"      
+        />*/}
+      </View>    
     </ImageBackground>
   );
 }
@@ -94,8 +106,10 @@ function HomeScreen({ navigation }) {
 
 function Galeria({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
+    <View style={styles.container}>
+      <ScrollView>
+    
+      </ScrollView>
     </View>
   );
 }
