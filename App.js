@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import FichaCR from './screens/FichaCR';
 import FichaInventario from './screens/FichaInventario';
 import Galeria from './screens/Galeria';
